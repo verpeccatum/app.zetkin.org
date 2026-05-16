@@ -39,7 +39,7 @@ const BrowserDragLayer: FC = () => {
       <Box
         sx={{
           left: 0,
-          pointerEvens: 'none',
+          pointerEvents: 'none',
           position: 'fixed',
           top: 0,
           zIndex: 9999,
@@ -60,9 +60,11 @@ const BrowserDragLayer: FC = () => {
             boxShadow: dragProps.canDrop
               ? '0 6px 6px rgba(0,0,0,0.2)'
               : '0 14px 14px rgba(0,0,0,0.2)',
+            display: 'inline-block',
             fontSize: oldTheme.typography.body2.fontSize,
             left: currentOffset.x,
             padding: 1,
+            maxWidth: 'calc(100vw - 24px)',
             pointerEvents: 'none',
             position: 'absolute',
             top: currentOffset.y,
@@ -70,18 +72,20 @@ const BrowserDragLayer: FC = () => {
               ? 'scale(1) rotate(0)'
               : 'scale(1.1) rotate(5deg)',
             transition: 'transform 200ms, box-shadow 200ms',
-            whiteSpace: 'normal',
-            width: 'min(180px, calc(100vw - 100px))',
+            whiteSpace: 'nowrap',
+            width: 'fit-content',
           }}
         >
-          <Box alignItems="flex-start" display="flex" gap={0.75}>
+          <Box alignItems="center" display="flex" gap={1} maxWidth="100%">
             <Box
               sx={{
                 '& .MuiSvgIcon-root': {
                   fontSize: 18,
                 },
+                alignItems: 'center',
+                display: 'flex',
                 flexShrink: 0,
-                lineHeight: 1,
+                lineHeight: 0,
               }}
             >
               <BrowserItemIcon item={item} />
@@ -90,7 +94,9 @@ const BrowserDragLayer: FC = () => {
               sx={{
                 lineHeight: 1.15,
                 minWidth: 0,
-                overflowWrap: 'anywhere',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
               }}
             >
               {item.title}
